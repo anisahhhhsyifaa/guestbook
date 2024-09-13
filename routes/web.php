@@ -15,4 +15,12 @@ Auth::routes(
     ]
 );
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::group([
+    'middleware' => ['auth'],
+    'prefix'=> 'admin', // admin/tamu
+    'as' => 'admin.' //route(admin.)
+    ], function() { 
+
+    Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('index');
+    Route::get('/dashboard',[App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
+}); 
